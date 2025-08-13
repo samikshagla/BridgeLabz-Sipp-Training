@@ -1,0 +1,18 @@
+Initialize STACK undoStack
+
+Function typeText(text):
+    PUSH text onto undoStack
+
+Function undo():
+    IF undoStack is empty
+        PRINT "Nothing to undo"
+    ELSE
+        action = POP from undoStack
+        PRINT "Undo: " + action
+
+Main:
+    typeText("Hello")
+    typeText("World")
+    undo()
+    undo()   
+    undo()   
