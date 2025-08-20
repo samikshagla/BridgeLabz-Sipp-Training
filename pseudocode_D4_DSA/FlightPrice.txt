@@ -1,0 +1,59 @@
+CLASS Flight {
+    ATTRIBUTES:
+        flightId
+        price
+        duration
+
+    CONSTRUCTOR(flightId, price, duration) {
+        SET this.flightId = flightId
+        SET this.price = price
+        SET this.duration = duration
+    }
+}
+
+CLASS FlightComparator {
+    METHOD compare(f1, f2) {
+        IF f1.price != f2.price THEN
+            RETURN f1.price - f2.price
+        ELSE
+            RETURN f1.duration - f2.duration
+        END IF
+    }
+}
+
+METHOD mergeSort(flights[], comparator) {
+    IF flights.length <= 1 THEN
+        RETURN flights
+    END IF
+
+    mid = flights.length / 2
+    left = mergeSort(flights[0..mid-1], comparator)
+    right = mergeSort(flights[mid..end], comparator)
+
+    RETURN merge(left, right, comparator)
+}
+
+METHOD merge(left[], right[], comparator) {
+    result[]
+    i = 0, j = 0
+    WHILE i < left.length AND j < right.length {
+        IF comparator.compare(left[i], right[j]) < 0 THEN
+            ADD left[i] TO result
+            i++
+        ELSE
+            ADD right[j] TO result
+            j++
+        END IF
+    }
+    ADD remaining elements of left and right TO result
+    RETURN result
+}
+
+MAIN METHOD {
+    flights = [Flight("F1", 5000, 120), Flight("F2", 4000, 150), Flight("F3", 5000, 100)]
+    sortedFlights = mergeSort(flights, new FlightComparator())
+
+    FOR EACH flight IN sortedFlights {
+        PRINT flight.flightId + " Price: " + flight.price + " Duration: " + flight.duration
+    }
+}

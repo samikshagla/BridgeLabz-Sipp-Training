@@ -1,0 +1,33 @@
+CLASS Graph {
+    ATTRIBUTES:
+        adjacencyList (Map<Zone, List<Zone>>)
+        riskData (Map<Zone, Integer>)  // stores risk score
+
+    METHOD addEdge(zone1, zone2) {
+        ADD zone2 TO adjacencyList[zone1]
+        ADD zone1 TO adjacencyList[zone2]
+    }
+
+    METHOD DFS(zone, visited) {
+        MARK zone AS visited
+        PRINT "Visiting Zone: " + zone + " Risk: " + riskData[zone]
+
+        FOR EACH neighbor IN adjacencyList[zone] {
+            IF neighbor NOT visited THEN
+                CALL DFS(neighbor, visited)
+            END IF
+        }
+    }
+}
+
+MAIN METHOD {
+    CREATE cityGraph OBJECT OF Graph()
+
+    ADD edges between zones
+    SET riskData with past crime counts
+
+    visited = EMPTY SET
+    START DFS from Zone A
+
+    PRINT "High-Risk Areas identified"
+}
