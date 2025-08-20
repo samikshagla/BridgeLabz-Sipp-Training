@@ -1,0 +1,70 @@
+CLASS Account {
+    ATTRIBUTES:
+        accountNumber
+        balance
+
+    CONSTRUCTOR(accountNumber, balance) {
+        SET this.accountNumber = accountNumber
+        SET this.balance = balance
+    }
+
+    METHOD deposit(amount) {
+        balance = balance + amount
+        PRINT "Deposited: " + amount + ", New Balance: " + balance
+    }
+
+    METHOD withdraw(amount) {
+        PRINT "Generic withdrawal - to be overridden"
+    }
+
+    METHOD displayBalance() {
+        PRINT "Account Number: " + accountNumber + ", Balance: " + balance
+    }
+}
+
+CLASS SavingAccount EXTENDS Account {
+    ATTRIBUTES:
+        withdrawalLimit = 10000
+
+    CONSTRUCTOR(accountNumber, balance) {
+        CALL super(accountNumber, balance)
+    }
+
+    METHOD withdraw(amount) {
+        IF amount <= withdrawalLimit AND amount <= balance THEN
+            balance = balance - amount
+            PRINT "Withdrawn: " + amount + ", Balance: " + balance
+        ELSE
+            PRINT "Withdrawal failed: Limit or balance exceeded"
+        END IF
+    }
+}
+
+CLASS CurrentAccount EXTENDS Account {
+    ATTRIBUTES:
+        overdraftLimit = 5000
+
+    CONSTRUCTOR(accountNumber, balance) {
+        CALL super(accountNumber, balance)
+    }
+
+    METHOD withdraw(amount) {
+        IF amount <= (balance + overdraftLimit) THEN
+            balance = balance - amount
+            PRINT "Withdrawn: " + amount + ", Balance: " + balance
+        ELSE
+            PRINT "Withdrawal failed: Overdraft limit exceeded"
+        END IF
+    }
+}
+
+MAIN METHOD {
+    CREATE saving OBJECT OF SavingAccount("S001", 20000)
+    CREATE current OBJECT OF CurrentAccount("C001", 5000)
+
+    CALL saving.withdraw(8000)
+    CALL saving.displayBalance()
+
+    CALL current.withdraw(9000)
+    CALL current.displayBalance()
+}

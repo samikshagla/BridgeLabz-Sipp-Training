@@ -1,0 +1,59 @@
+INTERFACE Rentable {
+    METHOD rent()
+    METHOD returnVehicle()
+}
+
+ABSTRACT CLASS Vehicle IMPLEMENTS Rentable {
+    ATTRIBUTES:
+        vehicleId
+        brand
+
+    CONSTRUCTOR(vehicleId, brand) {
+        SET this.vehicleId = vehicleId
+        SET this.brand = brand
+    }
+}
+
+CLASS Car EXTENDS Vehicle {
+    METHOD rent() {
+        PRINT "Car rented: " + brand + " ID: " + vehicleId
+    }
+
+    METHOD returnVehicle() {
+        PRINT "Car returned: " + brand
+    }
+}
+
+CLASS Bike EXTENDS Vehicle {
+    METHOD rent() {
+        PRINT "Bike rented: " + brand + " ID: " + vehicleId
+    }
+
+    METHOD returnVehicle() {
+        PRINT "Bike returned: " + brand
+    }
+}
+
+CLASS VehicleFactory {
+    METHOD getVehicle(type, id, brand) RETURNS Vehicle {
+        IF type = "Car" THEN
+            RETURN new Car(id, brand)
+        ELSE IF type = "Bike" THEN
+            RETURN new Bike(id, brand)
+        ELSE
+            RETURN null
+    }
+}
+
+MAIN METHOD {
+    CREATE factory OBJECT OF VehicleFactory()
+
+    car = factory.getVehicle("Car", "C123", "Honda")
+    bike = factory.getVehicle("Bike", "B456", "Yamaha")
+
+    CALL car.rent()
+    CALL bike.rent()
+
+    CALL car.returnVehicle()
+    CALL bike.returnVehicle()
+}
