@@ -1,0 +1,37 @@
+CLASS MazeSolver {
+    ATTRIBUTES:
+        maze[ ][ ]   
+        solution[ ][ ]
+
+    METHOD solveMaze(x, y) {
+        IF x,y is outside maze OR maze[x][y] = WALL OR solution[x][y] = 1 THEN
+            RETURN false
+        END IF
+
+        IF x,y is goal THEN
+            solution[x][y] = 1
+            RETURN true
+        END IF
+
+        solution[x][y] = 1
+
+        IF solveMaze(x+1, y) OR solveMaze(x, y+1) OR
+           solveMaze(x-1, y) OR solveMaze(x, y-1) THEN
+            RETURN true
+        END IF
+
+        solution[x][y] = 0   
+        RETURN false
+    }
+}
+
+MAIN METHOD {
+    DEFINE maze = 2D grid with paths and walls
+    CREATE solver OBJECT OF MazeSolver()
+
+    IF solver.solveMaze(0, 0) THEN
+        PRINT "Path Found"
+    ELSE
+        PRINT "No Path Exists"
+    END IF
+}

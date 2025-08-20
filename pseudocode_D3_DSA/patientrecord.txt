@@ -1,0 +1,32 @@
+CLASS Patient {
+    ATTRIBUTES:
+        id
+        name
+        age
+
+    CONSTRUCTOR(id, name, age) {
+        SET this.id = id
+        SET this.name = name
+        SET this.age = age
+    }
+}
+
+MAIN METHOD {
+    CREATE patientMap (HashMap<Integer, Patient>)
+
+    // Insert
+    ADD new Patient(1, "Rahul", 25) INTO patientMap[1]
+    ADD new Patient(2, "Sneha", 30) INTO patientMap[2]
+
+    // Retrieve
+    patient = patientMap[1]
+    PRINT "Retrieved Patient: " + patient.name
+
+    // Update
+    patientMap[2].age = 31
+
+    // Delete
+    REMOVE patientMap[1]
+
+    PRINT "Remaining Records: " + patientMap
+}
