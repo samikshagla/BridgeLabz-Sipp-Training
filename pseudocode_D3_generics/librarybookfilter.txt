@@ -1,0 +1,25 @@
+CLASS Book {
+    ATTRIBUTES:
+        title
+        year
+        rating
+
+    CONSTRUCTOR(title, year, rating) {
+        SET this.title = title
+        SET this.year = year
+        SET this.rating = rating
+    }
+}
+
+MAIN METHOD {
+    CREATE books LIST OF Book
+    ADD new Book("Java Basics", 2014, 4.7) INTO books
+    ADD new Book("AI Guide", 2018, 4.6) INTO books
+    ADD new Book("Old Book", 2010, 3.9) INTO books
+
+    FILTERED_BOOKS = FILTER books WHERE year > 2015 AND rating > 4.5
+
+    FOR EACH book IN FILTERED_BOOKS {
+        PRINT book.title + " (" + book.year + ") Rating: " + book.rating
+    }
+}

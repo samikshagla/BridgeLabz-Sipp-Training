@@ -1,0 +1,25 @@
+CLASS Transaction<T> {
+    ATTRIBUTES:
+        transactionId
+        paymentMethod (T)
+
+    CONSTRUCTOR(transactionId, paymentMethod) {
+        SET this.transactionId = transactionId
+        SET this.paymentMethod = paymentMethod
+    }
+
+    METHOD process() {
+        PRINT "Processing Transaction " + transactionId + 
+              " via " + paymentMethod
+    }
+}
+
+MAIN METHOD {
+    CREATE txn1 OBJECT OF Transaction<String>("TXN1001", "UPI")
+    CREATE txn2 OBJECT OF Transaction<String>("TXN1002", "Card")
+    CREATE txn3 OBJECT OF Transaction<String>("TXN1003", "NetBanking")
+
+    CALL txn1.process()
+    CALL txn2.process()
+    CALL txn3.process()
+}
