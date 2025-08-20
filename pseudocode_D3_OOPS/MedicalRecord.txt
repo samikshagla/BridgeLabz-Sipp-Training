@@ -1,0 +1,64 @@
+INTERFACE Searchable {
+    METHOD search(keyword)
+}
+
+INTERFACE Printable {
+    METHOD print()
+}
+
+CLASS LabReport IMPLEMENTS Searchable, Printable {
+    ATTRIBUTES:
+        reportId
+        details
+
+    CONSTRUCTOR(reportId, details) {
+        SET this.reportId = reportId
+        SET this.details = details
+    }
+
+    METHOD search(keyword) {
+        IF keyword IN details THEN
+            RETURN "Found in LabReport"
+        ELSE
+            RETURN "Not Found"
+        END IF
+    }
+
+    METHOD print() {
+        PRINT "Lab Report ID: " + reportId + ", Details: " + details
+    }
+}
+
+CLASS Prescription IMPLEMENTS Searchable, Printable {
+    ATTRIBUTES:
+        doctorName
+        medicines
+
+    CONSTRUCTOR(doctorName, medicines) {
+        SET this.doctorName = doctorName
+        SET this.medicines = medicines
+    }
+
+    METHOD search(keyword) {
+        IF keyword IN medicines THEN
+            RETURN "Medicine Found"
+        ELSE
+            RETURN "Medicine Not Found"
+        END IF
+    }
+
+    METHOD print() {
+        PRINT "Prescription by Dr. " + doctorName + ", Medicines: " + medicines
+    }
+}
+
+MAIN METHOD {
+    CREATE report OBJECT OF LabReport(101, "Blood test - Normal")
+    CREATE prescription OBJECT OF Prescription("Vipin", "Paracetamol, Dolo")
+
+    CALL report.print()
+    PRINT report.search("Blood")
+
+    CALL prescription.print()
+    PRINT prescription.search("Dolo")
+}

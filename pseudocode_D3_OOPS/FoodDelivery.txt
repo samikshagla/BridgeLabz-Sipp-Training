@@ -1,0 +1,61 @@
+CLASS Customer {
+    ATTRIBUTES:
+        name
+        address
+
+    CONSTRUCTOR(name, address) {
+        SET this.name = name
+        SET this.address = address
+    }
+}
+
+CLASS Restaurant {
+    ATTRIBUTES:
+        name
+        location
+
+    CONSTRUCTOR(name, location) {
+        SET this.name = name
+        SET this.location = location
+    }
+}
+
+CLASS DeliveryBoy {
+    ATTRIBUTES:
+        name
+        contact
+
+    CONSTRUCTOR(name, contact) {
+        SET this.name = name
+        SET this.contact = contact
+    }
+}
+
+CLASS Order {
+    ATTRIBUTES:
+        customer
+        restaurant
+        deliveryBoy
+
+    CONSTRUCTOR(customer, restaurant, deliveryBoy) {
+        SET this.customer = customer
+        SET this.restaurant = restaurant
+        SET this.deliveryBoy = deliveryBoy
+    }
+
+    METHOD displayOrderDetails() {
+        PRINT "Customer: " + customer.name + ", Address: " + customer.address
+        PRINT "Restaurant: " + restaurant.name + ", Location: " + restaurant.location
+        PRINT "Delivery Boy: " + deliveryBoy.name + ", Contact: " + deliveryBoy.contact
+    }
+}
+
+MAIN METHOD {
+    CREATE customer OBJECT OF Customer("Ayushi", "Delhi")
+    CREATE restaurant OBJECT OF Restaurant("PizzaHub", "Noida")
+    CREATE deliveryBoy OBJECT OF DeliveryBoy("Ravi", "9876543210")
+    CREATE order OBJECT OF Order(customer, restaurant, deliveryBoy)
+
+    PRINT "--- Order Details ---"
+    CALL order.displayOrderDetails()
+}
