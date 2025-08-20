@@ -1,0 +1,38 @@
+CLASS Job {
+    ATTRIBUTES:
+        jobId
+        deadline
+        processingTime
+
+    CONSTRUCTOR(jobId, deadline, processingTime) {
+        SET this.jobId = jobId
+        SET this.deadline = deadline
+        SET this.processingTime = processingTime
+    }
+}
+
+CLASS JobScheduler {
+    ATTRIBUTES:
+        jobQueue   // priority queue (ordered by deadline, then processingTime)
+
+    METHOD addJob(job) {
+        ADD job INTO jobQueue
+    }
+
+    METHOD scheduleJobs() {
+        WHILE jobQueue is not empty {
+            job = REMOVE from jobQueue
+            PRINT "Processing Job " + job.jobId +
+                  " Deadline: " + job.deadline +
+                  " Time: " + job.processingTime
+        }
+    }
+}
+
+MAIN METHOD {
+    CREATE scheduler OBJECT OF JobScheduler()
+    CALL scheduler.addJob(new Job(1, 3, 4))
+    CALL scheduler.addJob(new Job(2, 1, 2))
+
+    CALL scheduler.scheduleJobs()
+}
