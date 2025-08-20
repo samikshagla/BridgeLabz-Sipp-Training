@@ -1,0 +1,36 @@
+ENUM TrafficLight {
+    RED, GREEN, YELLOW
+}
+
+CLASS TrafficSignal {
+    ATTRIBUTES:
+        currentLight
+
+    CONSTRUCTOR() {
+        SET currentLight = RED
+    }
+
+    METHOD changeLight() {
+        IF currentLight = RED THEN
+            SET currentLight = GREEN
+        ELSE IF currentLight = GREEN THEN
+            SET currentLight = YELLOW
+        ELSE
+            SET currentLight = RED
+        END IF
+    }
+
+    METHOD displayLight() {
+        PRINT "Current Signal: " + currentLight
+    }
+}
+
+MAIN METHOD {
+    CREATE signal OBJECT OF TrafficSignal()
+
+    LOOP 5 TIMES {
+        CALL signal.displayLight()
+        WAIT 5 seconds
+        CALL signal.changeLight()
+    }
+}

@@ -1,0 +1,32 @@
+ABSTRACT CLASS Crop {
+    ABSTRACT METHOD waterRequirement()
+    ABSTRACT METHOD harvestTime()
+}
+
+CLASS Rice EXTENDS Crop {
+    METHOD waterRequirement() {
+        RETURN "High water required"
+    }
+
+    METHOD harvestTime() {
+        RETURN "Harvest in 120 days"
+    }
+}
+
+CLASS Wheat EXTENDS Crop {
+    METHOD waterRequirement() {
+        RETURN "Medium water required"
+    }
+
+    METHOD harvestTime() {
+        RETURN "Harvest in 90 days"
+    }
+}
+
+MAIN METHOD {
+    CREATE rice OBJECT OF Rice()
+    CREATE wheat OBJECT OF Wheat()
+
+    PRINT "Rice → " + rice.waterRequirement() + ", " + rice.harvestTime()
+    PRINT "Wheat → " + wheat.waterRequirement() + ", " + wheat.harvestTime()
+}
