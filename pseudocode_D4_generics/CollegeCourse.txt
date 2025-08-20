@@ -1,0 +1,37 @@
+CLASS Student {
+    ATTRIBUTES:
+        name
+        id
+
+    CONSTRUCTOR(name, id) {
+        SET this.name = name
+        SET this.id = id
+    }
+}
+
+CLASS Course {
+    ATTRIBUTES:
+        courseName
+
+    CONSTRUCTOR(courseName) {
+        SET this.courseName = courseName
+    }
+}
+
+MAIN METHOD {
+    CREATE courseMap (Map<Course, List<Student>>)
+
+    course1 = new Course("Java Programming")
+    course2 = new Course("AI Basics")
+
+    ADD new Student("Ayushi", 101) INTO courseMap[course1]
+    ADD new Student("Rahul", 102) INTO courseMap[course1]
+    ADD new Student("Sneha", 103) INTO courseMap[course2]
+
+    FOR EACH course IN courseMap.keys() {
+        PRINT "Course: " + course.courseName
+        FOR EACH student IN courseMap[course] {
+            PRINT student.name + " (ID: " + student.id + ")"
+        }
+    }
+}
