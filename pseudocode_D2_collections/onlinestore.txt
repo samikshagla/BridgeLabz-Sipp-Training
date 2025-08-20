@@ -1,0 +1,36 @@
+CLASS Item {
+    ATTRIBUTES:
+        name
+        price
+
+    CONSTRUCTOR(name, price) {
+        SET this.name = name
+        SET this.price = price
+    }
+}
+
+CLASS ShoppingCart {
+    ATTRIBUTES:
+        cartItems (List<Item>)
+
+    METHOD addItem(item) {
+        ADD item INTO cartItems
+    }
+
+    GENERIC METHOD calculateTotal(items: List<T extends Item>) RETURNS DOUBLE {
+        total = 0
+        FOR EACH item IN items {
+            total = total + item.price
+        }
+        RETURN total
+    }
+}
+
+MAIN METHOD {
+    CREATE cart OBJECT OF ShoppingCart()
+    CALL cart.addItem(new Item("Laptop", 50000))
+    CALL cart.addItem(new Item("Mouse", 500))
+
+    total = cart.calculateTotal(cart.cartItems)
+    PRINT "Total Price: " + total
+}

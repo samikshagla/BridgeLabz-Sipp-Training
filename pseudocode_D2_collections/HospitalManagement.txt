@@ -1,0 +1,29 @@
+CLASS Doctor {
+    ATTRIBUTES:
+        name
+        specialization
+
+    CONSTRUCTOR(name, specialization) {
+        SET this.name = name
+        SET this.specialization = specialization
+    }
+}
+
+MAIN METHOD {
+    CREATE hospitalMap (Map<String, List<Doctor>>)
+
+    ADD new Doctor("Dr. A", "Heart") INTO hospitalMap["Cardiology"]
+    ADD new Doctor("Dr. B", "Brain") INTO hospitalMap["Neurology"]
+    ADD new Doctor("Dr. C", "Heart") INTO hospitalMap["Cardiology"]
+
+    specialization = "Heart"
+
+    FOR EACH department IN hospitalMap.keys() {
+        doctorsList = hospitalMap[department]
+        FOR EACH doctor IN doctorsList {
+            IF doctor.specialization = specialization THEN
+                PRINT doctor.name + " works in " + department
+            END IF
+        }
+    }
+}
